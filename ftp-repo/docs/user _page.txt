@@ -1,0 +1,5 @@
+the user page need lable username
+the user page need the history button
+the user page need the stored note from database
+need to add the account button on lable
+sign in source from https://www.youtube.com/watch?v=dam0GPOAvVI&t=5661s

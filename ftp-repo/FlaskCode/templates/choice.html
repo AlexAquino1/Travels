@@ -1,0 +1,24 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+    
+<div class="jumbo">
+  <h2>Choose Your Adventure</h2>
+  <h3>What type of booking would you like to make?</h3>
+  <div class="btn-container">
+    <form method="POST" action="{{ url_for('flight_info') }}">
+        <input type="hidden" name="user_input" value="{{ user_input }}">
+        <button type="submit" name="flight" value="1" class="btn">Flights</button>
+      </form>    
+      <form method="POST" action="{{ url_for('hotels') }}">
+        <input type="hidden" name="user_input" value="{{ user_input }}">
+        <button type="submit" name="Hotels" value="1" class="btn">Hotels</button>
+      </form>  
+      <form method="POST" action="{{ url_for('act') }}">
+        <input type="hidden" name="user_input" value="{{ user_input }}">
+        <button type="submit" name="Activities" value="1" class="btn">Activities</button>
+      </form>  
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="jumbo">
+  <div class="btn-container">
+    <table>
+      <thead>
+        <th><h2>Showing prices for "{{ destination }}"</h2></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <form method="post" action="/hotelResult">
+              <input type="hidden" name="user_input" value="{{destination}}">
+              <input type="hidden" name="people" value="{{adults}}">
+              <input type="hidden" name="checkIn" value="{{ depart | format_datetime2 }}">
+              <input type="hidden" name="checkOut" value="{{ return1  | format_datetime2 }}">
+              <input type="submit" value="View Hotels in {{ destination }}">
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <form method="post" action="/act">
+              <input type="hidden" name="act_input" value="{{destination}}">
+              <input type="submit" value="View Activities in {{ destination }}">
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+        <table id="flight-table">
+        <thead>
+          <tr>
+            <th>Price</th>
+            <th>Orgin</th>
+            <th>Destination</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Duration</th>
+            <th>Carrier</th>
+            <th>Stops</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for flight in flights %}
+              <tr>
+                  <td>{{ flight['Price'] | format_price }}</td>                
+                  <td>{{ flight['Origin'] }}</td>
+                  <td>{{ flight['Destination'] }}</td>
+                  <td>{{ flight['Departure'] | format_datetime }}</td>
+                  <td>{{ flight['Arrival']  | format_datetime}}</td>
+                  <td>{{ flight['Duration'] | format_duration}}</td>
+                  <td>{{ flight['Carrier'] }}</td>           
+                  <td>{{ flight['Stops'] }}</td> 
+
+                  <td>
+                    <form method="post" action="/book">
+                      <input type="hidden" name="flight_id" value="{{ flight['Id'] }}">
+                      <input type="hidden" name="origin" value="{{ origin }}">
+                      <input type="hidden" name="destination" value="{{ destination }}">
+                      <input type="hidden" name="departure" value="{{ flight['Departure'] }}">
+                      <input type="hidden" name="arrival" value="{{ flight.ConnectingArrival }}">
+                      <input type="hidden" name="adults" value="{{ flight['Adults'] }}">
+                      <input type="hidden" name="children" value="{{ flight['Children'] }}">
+                      <input type="hidden" name="infants" value="{{ flight['Infants'] }}">
+                      <input type="hidden" name="cabinClass" value="{{ flight['CabinClass'] }}">
+                      <input type="hidden" name="price" value="{{ flight['Price'] }}">
+                      <input type="submit" value="Select Flight">
+                    </form>
+                  </td> 
+            
+              </tr>
+              {% if flight.ConnectingOrigin %}
+                  <tr>
+                    <td></td>
+                    <td>{{ flight.ConnectingOrigin }}</td>
+                    <td>{{ flight.ConnectingDestination }}</td>
+                    <td>{{ flight.ConnectingDeparture  | format_datetime}}</td>
+                    <td>{{ flight.ConnectingArrival | format_datetime }}</td>
+                    <td>{{ flight.ConnectingDuration | format_duration}}</td>
+                    <td>{{ flight.ConnectingCarrier }}</td>           
+                    <td>{{ flight.ConnectingStops }}</td> 
+
+        
+                  </tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+
+                </td>
+              {% endif %}
+              <tr><td colspan="7"><hr></td></tr>
+          {% endfor %}          
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block scripts %}
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap"></script>
+{% endblock %}

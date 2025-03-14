@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="jumbo text-center">
+  <head>
+    <title>Flight Prices</title>
+  </head>
+  <body>
+    <h1>Results for {{user_input}}</h1>
+    <h4>{{adultNum}} Adults. Check In: {{checkIn}}. Check Out: {{checkOut}}</h4>
+    <table>
+      <tr>
+        <th>Hotel Name</th>
+        <th>Address</th>
+        <th>Price(Total)</th>
+      </tr>
+      {% for entity in data['result'] %}
+      <tr>
+        <td>{{ entity['hotel_name'] }}</td>
+        <td>{{ entity['address'] + " " + entity['zip'] }}</td>
+        <td>{{ entity['price_breakdown']['gross_price'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</div>
+{% endblock %}

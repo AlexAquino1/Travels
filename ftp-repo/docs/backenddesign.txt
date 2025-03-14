@@ -1,0 +1,22 @@
+normal reg page include:
+name,email,password,confirm_password
+(Check if email already exists)
+(insert data to database)
+
+login page:
+input required:name/email, password. login button.
+(get data from database, if match, goto account page)
+
+account page:
+print name & email
+save to later, search history button, *check out 
+(click the button to jump to save to later and search history page)
+# as a virtual planner, we might need a page to list the selected items.
+
+save to later page:
+list the items in the stl table.
+(click the item to jump to item page)
+
+search history page:
+list the search history for each api search page.(muti table)
+# have muti search api, consider list each search his in different table
