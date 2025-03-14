@@ -23,4 +23,7 @@ six==1.15.0
 Werkzeug==2.2.2
 WTForms==3.0.1
 gunicorn==21.2.0
+skyscanner==1.1.5
+FlightRadarAPI==1.2.3
+
 opensky-api @ git+https://github.com/openskynetwork/opensky-api.git@0a4259a#subdirectory=python
